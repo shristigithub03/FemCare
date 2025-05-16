@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Embrace Period Talk</title>
+  <head>
+  
+  <style>
+    /* Embedded CSS */
+    .header {
+      background-color:hwb(285 69% 11%);
+        padding: 1rem 0; 
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        width: 100%;
+      }
+      
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #faf5f5;
+        color: #333;
+      }
+      
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between; 
+        flex-wrap: wrap;
+        padding: 0 1rem;
+      }
+      
+      #logoimg img {
+        height: 50px;
+        width: auto;
+        padding-left: 10px;
+      }
+      
+      i{
+      font-size: 0.5rem;
+      }
+      
+      .nav-links {
+        display: flex;
+        gap: 1.5rem;
+        align-items: center;
+      }
+      
+      .nav-link {
+        text-decoration: none;
+        color: #300651;
+        font-weight: bold;
+        font-size: 1rem;
+        transition: color 0.3s ease, transform 0.3s ease;
+      }
+      
+      .nav-link:hover {
+        color: #f2165f;
+        transform: scale(1.1); 
+      }
+      
+      @media (max-width: 768px) {
+        .container {
+            flex-direction: column;
+            text-align: center;
+        }
+      
+        .nav-links {
+            flex-direction: column;
+            gap: 1rem;
+        }
+      
+        #logoimg img {
+            margin-bottom: 1rem; 
+        }
+      }
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #ffffff;
+    }
+
+    .team {
+    padding: 2rem;
+    background-color: #fff;
+}
+
+      .team h2 {
+          text-align: center;
+          margin-bottom: 1rem;
+          color: #ff6f61;
+      }
+
+
+
+      .team-container {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 1rem;
+      }
+
+      .team-box {
+          background-color: #fef2f2;
+          border: 1px solid #ff6f61;
+          border-radius: 10px;
+          width: 320px;
+          height: 180px;
+          text-align: center;
+          padding: 1rem;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .team-box img {
+          border-radius: 50%;
+          width: 80px;
+          height: 80px;
+          object-fit: cover;
+          margin-bottom: 0.5rem;
+      }
+
+      .team-box h3 {
+          font-size: 1rem;
+          color: #333;
+      }
+
+      .team-box p {
+          font-size: 0.85rem;
+          color: #777;
+      }
+
+      
+  .footer {
+    text-align: center;
+    padding: 10px;
+    background: #333;
+    color: #fff;
+    margin-top: 20px;
+  }
+      </style>
+      </head>
+      <body>
+         <!-- header -->
+  <header class="header">
+    <div class="container">
+
+        <div id="logoimg">
+            <img src="images/logo.png" alt="Logo">
+        </div>
+
+        <nav class="nav-links">
+          <a href="femcare_index.html" class="nav-link">FemCare</a>
+            <a href="in.html" class="nav-link">About Us</a>
+            <a href="education.html" class="nav-link">Education</a>
+            <a href="product.html" class="nav-link">Products</a>
+            <a href="team.html" class="nav-link">Contact Us</a>
+        </nav>
+
+    </div>
+</header>
+
+         <!-- Our Team Section -->
+         <section class="team">
+            <h2>Meet Our Team</h2>
+            <div class="team-container" id="teamContainer">
+                <!-- Team boxes will be dynamically generated here -->
+            </div>
+        </section>
+
+          <script>
+            // Embedded JavaScript
+            document.addEventListener('DOMContentLoaded', () => {
+              const imageSection = document.querySelector('.box img');
+              imageSection.addEventListener('click', () => {
+                alert('Thank you for joining the conversation about periods!');
+              });
+            });
+            </script>
+          
+          <script>
+            const teamContainer = document.getElementById("teamContainer");
+            
+            const teamMembers = [
+    { 
+        name: "Sristi", 
+        role: "sristisrivastava2022@vitbhopal.in",
+        image: "images/team/sristi.jpg" 
+    },
+    { 
+        name: "Saee", 
+        role: "saeesharduljoshi2022@vitbhopal.ac.in",
+        image: "images/team/saee.jpg" 
+    },
+    { 
+        name: "Shristi", 
+        role: "shristisingh.2022@vitbhopal.ac.in",
+        image: "images/team/shristi.jpg" 
+    },
+    { 
+        name: "Disha", 
+        role: "dishachakraborty2022@vitbhopal.ac.in",
+        image: "images/team/disha.jpg" 
+    },
+    { 
+        name: "Isha", 
+        role: "ishaprashantkashikar2022@vitbhopal.ac.in",
+        image: "images/team/isha.jpg" 
+    },
+    { 
+        name: "Mouthika", 
+        role: "puttamrajunagasaisrimoukthika2022@vitbhopal.ac.in",
+        image: "moukthika image.jpg" 
+    },
+    { 
+        name: "Aditi", 
+        role: "aditiupadhyay2022@vitbhopal.ac.in",
+        image: "images/team/aditi.jpg" 
+    },
+    { 
+        name: "Shrijani", 
+        role: "shrijanigubba2022@vitbhopal.ac.in",
+        image: "images/team/shrijani.jpg" 
+    },
+    { 
+        name: "Anushka", 
+        role: "anushkatripathi2022@vitbhopal.ac.in",
+        image: "images/team/anushka.jpg" 
+    },
+    { 
+        name: "Sanika", 
+        role: "sanikadhage2022@vitbhopal.ac.in",
+        image: "images/team/sanika.jpg" 
+    }
+];
+            teamMembers.forEach((member) => {
+                const teamBox = document.createElement("div");
+                teamBox.classList.add("team-box");
+            
+                teamBox.innerHTML = `
+                    <img src="https://via.placeholder.com/80" alt="${member.name}">
+                    <h3>${member.name}</h3>
+                    <p>${member.role}</p>
+                `;
+            
+                teamContainer.appendChild(teamBox);
+            });
+            </script>
+            <footer class="footer">
+              <p>&copy; 2024 FemCare. All Rights Reserved.</p>
+          </footer>
+</body>
+</html>
