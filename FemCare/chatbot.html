@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FemCare Chatbot</title>
+    <style>
+        /* Chatbot Container Styles */
+        .chatbot-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+        }
+        
+        /* Chatbot Button Styles */
+        .chatbot-button {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background-color: #ff6b9d;
+            color: white;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 28px;
+            transition: all 0.3s ease;
+        }
+        
+        .chatbot-button:hover {
+            background-color: #e0558a;
+            transform: scale(1.1);
+        }
+        
+        /* Chatbot Window Styles (hidden by default) */
+        .chatbot-window {
+            width: 350px;
+            height: 500px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Chatbot Header */
+        .chatbot-header {
+            background-color: #ff6b9d;
+            color: white;
+            padding: 15px;
+            font-weight: bold;
+            text-align: center;
+            font-size: 18px;
+        }
+        
+        /* Chatbot Messages Area */
+        .chatbot-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            background-color: #fef6f9;
+        }
+        
+        /* Message Styles */
+        .message {
+            margin-bottom: 12px;
+            padding: 10px 15px;
+            border-radius: 18px;
+            max-width: 80%;
+            word-wrap: break-word;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        
+        /* Bot Message Style */
+        .bot-message {
+            background-color: white;
+            border: 1px solid #f0d0da;
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        
+        /* User Message Style */
+        .user-message {
+            background-color: #ff6b9d;
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 5px;
+            margin-left: auto;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        /* Chatbot Input Area */
+        .chatbot-input {
+            display: flex;
+            padding: 12px;
+            border-top: 1px solid #f0d0da;
+            background-color: white;
+        }
+        
+        /* Input Field */
+        #chatbot-user-input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #f0d0da;
+            border-radius: 25px;
+            outline: none;
+            font-size: 14px;
+            transition: border 0.3s;
+        }
+        
+        #chatbot-user-input:focus {
+            border-color: #ff6b9d;
+        }
+        
+        /* Send Button */
+        #chatbot-send-button {
+            background-color: #ff6b9d;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 0 20px;
+            margin-left: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+        
+        #chatbot-send-button:hover {
+            background-color: #e0558a;
+        }
+        
+        /* Quick Reply Buttons */
+        .quick-replies {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 8px;
+            background-color: white;
+            border-top: 1px solid #f0d0da;
+        }
+        
+        .quick-reply {
+            background-color: #fef6f9;
+            border: 1px solid #f0d0da;
+            border-radius: 15px;
+            padding: 6px 12px;
+            margin: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .quick-reply:hover {
+            background-color: #ff6b9d;
+            color: white;
+            border-color: #ff6b9d;
+        }
+    </style>
+</head>
+<body>
+    <!-- Chatbot Container -->
+    <div class="chatbot-container">
+        <!-- Chatbot Window (hidden by default) -->
+        <div class="chatbot-window" id="chatbot-window">
+            <div class="chatbot-header">
+                FemCare Assistant
+            </div>
+            <div class="chatbot-messages" id="chatbot-messages">
+                <div class="message bot-message">
+                    Hello there! 👋 I'm your FemCare assistant. How can I help you today?
+                </div>
+                <div class="message bot-message">
+                    I can provide information about menstrual health, hygiene tips, cycle tracking, and more. Ask me anything!
+                </div>
+            </div>
+            <div class="quick-replies">
+                <button class="quick-reply" onclick="sendQuickReply('Tell me about menstrual cycle phases')">Cycle phases</button>
+                <button class="quick-reply" onclick="sendQuickReply('What hygiene products do you recommend?')">Hygiene products</button>
+                <button class="quick-reply" onclick="sendQuickReply('How to relieve period cramps?')">Cramp relief</button>
+                <button class="quick-reply" onclick="sendQuickReply('Best foods during periods')">Period nutrition</button>
+            </div>
+            <div class="chatbot-input">
+                <input type="text" id="chatbot-user-input" placeholder="Type your message here..." autocomplete="off">
+                <button id="chatbot-send-button">Send</button>
+            </div>
+        </div>
+        
+        <!-- Chatbot Button (always visible) -->
+        <button class="chatbot-button" id="chatbot-button">💬</button>
+    </div>
+
+    <script>
+        // Toggle chatbot window when button is clicked
+        const chatbotButton = document.getElementById('chatbot-button');
+        const chatbotWindow = document.getElementById('chatbot-window');
+        
+        chatbotButton.addEventListener('click', function() {
+            // Toggle display of chat window
+            if (chatbotWindow.style.display === 'flex') {
+                chatbotWindow.style.display = 'none';
+            } else {
+                chatbotWindow.style.display = 'flex';
+                // Focus on input field when opening
+                document.getElementById('chatbot-user-input').focus();
+            }
+        });
+        
+        // Send message when Send button is clicked
+        document.getElementById('chatbot-send-button').addEventListener('click', sendMessage);
+        
+        // Send message when Enter key is pressed
+        document.getElementById('chatbot-user-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+        
+        // Function to send a message
+        function sendMessage() {
+            const userInput = document.getElementById('chatbot-user-input');
+            const message = userInput.value.trim();
+            
+            if (message !== '') {
+                // Add user message to chat
+                addMessage(message, 'user-message');
+                userInput.value = '';
+                
+                // Simulate bot thinking
+                setTimeout(() => {
+                    const botResponse = getBotResponse(message);
+                    addMessage(botResponse, 'bot-message');
+                }, 600);
+            }
+        }
+        
+        // Function to handle quick reply buttons
+        function sendQuickReply(text) {
+            addMessage(text, 'user-message');
+            
+            setTimeout(() => {
+                const botResponse = getBotResponse(text);
+                addMessage(botResponse, 'bot-message');
+            }, 600);
+        }
+        
+        // Function to add a message to the chat
+        function addMessage(text, className) {
+            const chatMessages = document.getElementById('chatbot-messages');
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('message', className);
+            messageElement.textContent = text;
+            chatMessages.appendChild(messageElement);
+            // Scroll to bottom
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+        
+        // Function to generate bot responses
+        function getBotResponse(userMessage) {
+            userMessage = userMessage.toLowerCase();
+            
+            // Menstrual cycle responses
+            if (userMessage.includes('cycle') || userMessage.includes('phase') || userMessage.includes('period')) {
+                return "The menstrual cycle has four phases:\n1. Menstrual phase (days 1-5)\n2. Follicular phase (days 6-14)\n3. Ovulation phase (day 14)\n4. Luteal phase (days 15-28)\n\nWould you like details about any specific phase?";
+            } 
+            // Hygiene responses
+            else if (userMessage.includes('hygiene') || userMessage.includes('clean') || userMessage.includes('product')) {
+                return "For menstrual hygiene, we recommend:\n- Pads (change every 4-6 hrs)\n- Tampons (change every 4-8 hrs)\n- Menstrual cups (can last up to 12 hrs)\n- Period panties (great backup)\n\nAlways wash hands before and after changing products!";
+            }
+            // Cramp relief responses
+            else if (userMessage.includes('cramp') || userMessage.includes('pain') || userMessage.includes('ache')) {
+                return "For period cramps, try:\n🔥 Heat pad on abdomen\n🧘‍♀️ Gentle yoga/stretching\n💊 OTC pain relievers (ibuprofen)\n🍵 Warm herbal tea\n🚶‍♀️ Light exercise\n\nOur 'Exercises' section has more detailed relief techniques!";
+            }
+            // Nutrition responses
+            else if (userMessage.includes('food') || userMessage.includes('nutrition') || userMessage.includes('diet')) {
+                return "During your period, focus on:\n🍫 Dark chocolate (magnesium)\n🥬 Leafy greens (iron)\n🐟 Salmon (omega-3s)\n🥑 Avocados (healthy fats)\n💧 Plenty of water\n\nAvoid excess salt, caffeine, and processed sugars which can worsen bloating.";
+            }
+            // General help
+            else if (userMessage.includes('help') || userMessage.includes('support') || userMessage.includes('question')) {
+                return "I can help with:\n- Menstrual health info\n- Hygiene recommendations\n- Symptom management\n- Product advice\n\nTry asking about specific topics or use the quick reply buttons above!";
+            }
+            // Greetings
+            else if (userMessage.includes('hello') || userMessage.includes('hi') || userMessage.includes('hey')) {
+                return "Hi there! 💖 What menstrual health topic would you like to discuss today?";
+            }
+            // Goodbye
+            else if (userMessage.includes('bye') || userMessage.includes('goodbye') || userMessage.includes('thanks')) {
+                return "You're welcome! Remember I'm here whenever you have questions about menstrual health. Take care! 🌸";
+            }
+            // Default response
+            else {
+                return "I'm still learning about all aspects of menstrual health. For detailed information, check our Education section. Could you try asking your question differently?";
+            }
+        }
+    </script>
+</body>
+</html>
